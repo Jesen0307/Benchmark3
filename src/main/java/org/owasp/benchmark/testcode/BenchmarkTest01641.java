@@ -73,12 +73,21 @@ public class BenchmarkTest01641 extends HttpServlet {
             java.util.Properties benchmarkprops = new java.util.Properties();
             benchmarkprops.load(
                     this.getClass().getClassLoader().getResourceAsStream("benchmark.properties"));
-            String algorithm = benchmarkprops.getProperty("cryptoAlg1", "DESede/ECB/PKCS5Padding");
+            String algorithm = "AES/GCM/NoPadding";
             javax.crypto.Cipher c = javax.crypto.Cipher.getInstance(algorithm);
 
             // Prepare the cipher to encrypt
-            javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance("DES").generateKey();
-            c.init(javax.crypto.Cipher.ENCRYPT_MODE, key);
+            javax.crypto.SecretKey key = javax.crypto.KeyGenerator.getInstance("AES").generateKey();
+            byte[] iv = new byte[12];
+            new java.security.SecureRandom().nextBytes(iv);
+            try {
+                c.init(
+                        javax.crypto.Cipher.ENCRYPT_MODE,
+                        key,
+                        new javax.crypto.spec.GCMParameterSpec(128, iv));
+            } catch (java.security.InvalidAlgorithmParameterException e) {
+                throw new ServletException(e);
+            }
 
             // encrypt and store the results
             byte[] input = {(byte) '?'};
