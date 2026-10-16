@@ -40,7 +40,7 @@ public class BenchmarkTest00388 extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        String param = request.getParameter("BenchmarkTest00388");
+        String param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( request.getParameter("BenchmarkTest00388"));
         if (param == null) param = "";
 
         StringBuilder sbxyz30382 = new StringBuilder(param);

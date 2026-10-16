@@ -54,6 +54,7 @@ public class BenchmarkTest00496 extends HttpServlet {
                             org.apache.commons.codec.binary.Base64.decodeBase64(
                                     org.apache.commons.codec.binary.Base64.encodeBase64(
                                             param.getBytes())));
+            bar = (bar != null && bar.matches("[A-Za-z0-9_\\-./ ]+")) ? bar : "invalid";
         }
 
         String cmd =

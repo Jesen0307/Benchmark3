@@ -53,21 +53,21 @@ public class BenchmarkTest01736 extends HttpServlet {
             return;
         }
 
-        String param =
+        String param =org.owasp.esapi.ESAPI.encoder().encodeForHTML(
                 queryString.substring(
                         paramLoc
                                 + paramval
-                                        .length()); // 1st assume "BenchmarkTest01736" param is last
+                                        .length())); // 1st assume "BenchmarkTest01736" param is last
         // parameter in query string.
         // And then check to see if its in the middle of the query string and if so, trim off what
         // comes after.
         int ampersandLoc = queryString.indexOf("&", paramLoc);
         if (ampersandLoc != -1) {
-            param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
+            param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( queryString.substring(paramLoc + paramval.length(), ampersandLoc));
         }
-        param = java.net.URLDecoder.decode(param, "UTF-8");
+        param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( java.net.URLDecoder.decode(param, "UTF-8"));
 
-        String bar = new Test().doSomething(request, param);
+        String bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( new Test().doSomething(request, param));
 
         try {
             java.io.FileInputStream file =
@@ -83,7 +83,7 @@ public class BenchmarkTest01736 extends HttpServlet {
             javax.xml.xpath.XPathFactory xpf = javax.xml.xpath.XPathFactory.newInstance();
             javax.xml.xpath.XPath xp = xpf.newXPath();
 
-            String expression = "/Employees/Employee[@emplid='" + bar + "']";
+            String expression = "/Employees/Employee[@emplid='" + org.owasp.esapi.ESAPI.encoder().encodeForXPath(bar) + "']";
             String result = xp.evaluate(expression, xmlDocument);
 
             response.getWriter().println("Your query results are: " + result + "<br/>");

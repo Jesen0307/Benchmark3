@@ -42,21 +42,21 @@ public class BenchmarkTest01088 extends HttpServlet {
 
         String param = "";
         if (request.getHeader("BenchmarkTest01088") != null) {
-            param = request.getHeader("BenchmarkTest01088");
+            param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( request.getHeader("BenchmarkTest01088"));
         }
 
         // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
-        param = java.net.URLDecoder.decode(param, "UTF-8");
+        param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( java.net.URLDecoder.decode(param, "UTF-8"));
 
-        String bar = new Test().doSomething(request, param);
+        String bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( new Test().doSomething(request, param));
 
-        String sql = "SELECT userid from USERS where USERNAME='foo' and PASSWORD='" + bar + "'";
+        String sql = "SELECT userid from USERS where USERNAME='foo' and PASSWORD=?";
         try {
             // Long results =
-            // org.owasp.benchmark.helpers.DatabaseHelper.JDBCtemplate.queryForLong(sql);
+            // org.owasp.benchmark.helpers.DatabaseHelper.JDBCtemplate.queryForLong(sql, bar);
             Long results =
                     org.owasp.benchmark.helpers.DatabaseHelper.JDBCtemplate.queryForObject(
-                            sql, Long.class);
+                            sql, Long.class, bar);
             response.getWriter().println("Your results are: " + String.valueOf(results));
         } catch (org.springframework.dao.EmptyResultDataAccessException e) {
             response.getWriter()
@@ -79,7 +79,7 @@ public class BenchmarkTest01088 extends HttpServlet {
 
             // Simple if statement that assigns param to bar on true condition
             int num = 196;
-            if ((500 / 42) + num > 200) bar = param;
+            if ((500 / 42) + num > 200) bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( param);
             else bar = "This should never happen";
 
             return bar;

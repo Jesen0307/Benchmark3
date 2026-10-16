@@ -42,13 +42,13 @@ public class BenchmarkTest01919 extends HttpServlet {
 
         String param = "";
         if (request.getHeader("Referer") != null) {
-            param = request.getHeader("Referer");
+            param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( request.getHeader("Referer"));
         }
 
         // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
-        param = java.net.URLDecoder.decode(param, "UTF-8");
+        param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( java.net.URLDecoder.decode(param, "UTF-8"));
 
-        String bar = doSomething(request, param);
+        String bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( doSomething(request, param));
 
         response.setHeader("X-XSS-Protection", "0");
         Object[] obj = {"a", "b"};
@@ -62,7 +62,7 @@ public class BenchmarkTest01919 extends HttpServlet {
 
         // Simple if statement that assigns param to bar on true condition
         int num = 196;
-        if ((500 / 42) + num > 200) bar = param;
+        if ((500 / 42) + num > 200) bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( param);
         else bar = "This should never happen";
 
         return bar;

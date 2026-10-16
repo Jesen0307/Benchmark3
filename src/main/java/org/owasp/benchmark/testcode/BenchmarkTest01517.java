@@ -43,9 +43,11 @@ public class BenchmarkTest01517 extends HttpServlet {
         org.owasp.benchmark.helpers.SeparateClassRequest scr =
                 new org.owasp.benchmark.helpers.SeparateClassRequest(request);
         String param = scr.getTheParameter("BenchmarkTest01517");
+        param = (param != null && param.matches("[A-Za-z0-9_\\-./ ]+")) ? param : "invalid";
         if (param == null) param = "";
 
         String bar = new Test().doSomething(request, param);
+        bar = (bar != null && bar.matches("[A-Za-z0-9_\\-./ ]+")) ? bar : "invalid";
 
         String a1 = "";
         String a2 = "";

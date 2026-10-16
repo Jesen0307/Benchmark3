@@ -50,14 +50,14 @@ public class BenchmarkTest02313 extends HttpServlet {
                 for (int i = 0; i < values.length && flag; i++) {
                     String value = values[i];
                     if (value.equals("BenchmarkTest02313")) {
-                        param = name;
+                        param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( name);
                         flag = false;
                     }
                 }
             }
         }
 
-        String bar = doSomething(request, param);
+        String bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( doSomething(request, param));
 
         response.setHeader("X-XSS-Protection", "0");
         Object[] obj = {"a", bar};
@@ -91,7 +91,7 @@ public class BenchmarkTest02313 extends HttpServlet {
         org.owasp.benchmark.helpers.ThingInterface thing =
                 org.owasp.benchmark.helpers.ThingFactory.createThing();
         String g31085 = "barbarians_at_the_gate"; // This is static so this whole flow is 'safe'
-        String bar = thing.doSomething(g31085); // reflection
+        String bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( thing.doSomething(g31085)); // reflection
 
         return bar;
     }

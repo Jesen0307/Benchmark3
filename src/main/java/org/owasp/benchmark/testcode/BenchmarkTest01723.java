@@ -53,30 +53,30 @@ public class BenchmarkTest01723 extends HttpServlet {
             return;
         }
 
-        String param =
+        String param =org.owasp.esapi.ESAPI.encoder().encodeForHTML(
                 queryString.substring(
                         paramLoc
                                 + paramval
-                                        .length()); // 1st assume "BenchmarkTest01723" param is last
+                                        .length())); // 1st assume "BenchmarkTest01723" param is last
         // parameter in query string.
         // And then check to see if its in the middle of the query string and if so, trim off what
         // comes after.
         int ampersandLoc = queryString.indexOf("&", paramLoc);
         if (ampersandLoc != -1) {
-            param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
+            param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( queryString.substring(paramLoc + paramval.length(), ampersandLoc));
         }
-        param = java.net.URLDecoder.decode(param, "UTF-8");
+        param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( java.net.URLDecoder.decode(param, "UTF-8"));
 
-        String bar = new Test().doSomething(request, param);
+        String bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( new Test().doSomething(request, param));
 
-        String sql = "SELECT userid from USERS where USERNAME='foo' and PASSWORD='" + bar + "'";
+        String sql = "SELECT userid from USERS where USERNAME='foo' and PASSWORD=?";
 
         try {
             // int results =
-            // org.owasp.benchmark.helpers.DatabaseHelper.JDBCtemplate.queryForInt(sql);
+            // org.owasp.benchmark.helpers.DatabaseHelper.JDBCtemplate.queryForInt(sql, bar);
             Integer results =
                     org.owasp.benchmark.helpers.DatabaseHelper.JDBCtemplate.queryForObject(
-                            sql, Integer.class);
+                            sql, Integer.class, bar);
             response.getWriter().println("Your results are: " + results);
 
         } catch (org.springframework.dao.EmptyResultDataAccessException e) {
@@ -101,7 +101,7 @@ public class BenchmarkTest01723 extends HttpServlet {
             // Simple ? condition that assigns param to bar on false condition
             int num = 106;
 
-            bar = (7 * 42) - num > 200 ? "This should never happen" : param;
+            bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( (7 * 42) - num > 200 ? "This should never happen" : param);
 
             return bar;
         }

@@ -42,10 +42,10 @@ public class BenchmarkTest02483 extends HttpServlet {
 
         String[] values = request.getParameterValues("BenchmarkTest02483");
         String param;
-        if (values != null && values.length > 0) param = values[0];
+        if (values != null && values.length > 0) param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( values[0]);
         else param = "";
 
-        String bar = doSomething(request, param);
+        String bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( doSomething(request, param));
 
         response.setHeader("X-XSS-Protection", "0");
         response.getWriter().print(bar);
@@ -54,7 +54,7 @@ public class BenchmarkTest02483 extends HttpServlet {
     private static String doSomething(HttpServletRequest request, String param)
             throws ServletException, IOException {
 
-        String bar = param;
+        String bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( param);
 
         return bar;
     }

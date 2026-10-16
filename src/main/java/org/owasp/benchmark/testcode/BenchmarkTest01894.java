@@ -57,13 +57,13 @@ public class BenchmarkTest01894 extends HttpServlet {
         if (theCookies != null) {
             for (javax.servlet.http.Cookie theCookie : theCookies) {
                 if (theCookie.getName().equals("BenchmarkTest01894")) {
-                    param = java.net.URLDecoder.decode(theCookie.getValue(), "UTF-8");
+                    param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( java.net.URLDecoder.decode(theCookie.getValue(), "UTF-8"));
                     break;
                 }
             }
         }
 
-        String bar = doSomething(request, param);
+        String bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( doSomething(request, param));
 
         try {
             java.io.FileInputStream file =
@@ -79,7 +79,7 @@ public class BenchmarkTest01894 extends HttpServlet {
             javax.xml.xpath.XPathFactory xpf = javax.xml.xpath.XPathFactory.newInstance();
             javax.xml.xpath.XPath xp = xpf.newXPath();
 
-            String expression = "/Employees/Employee[@emplid='" + bar + "']";
+            String expression = "/Employees/Employee[@emplid='" + org.owasp.esapi.ESAPI.encoder().encodeForXPath(bar) + "']";
             String result = xp.evaluate(expression, xmlDocument);
 
             response.getWriter().println("Your query results are: " + result + "<br/>");
@@ -104,7 +104,7 @@ public class BenchmarkTest01894 extends HttpServlet {
         // Simple ? condition that assigns param to bar on false condition
         int num = 106;
 
-        bar = (7 * 42) - num > 200 ? "This should never happen" : param;
+        bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( (7 * 42) - num > 200 ? "This should never happen" : param);
 
         return bar;
     }

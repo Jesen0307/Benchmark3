@@ -50,22 +50,22 @@ public class BenchmarkTest02359 extends HttpServlet {
                 for (int i = 0; i < values.length && flag; i++) {
                     String value = values[i];
                     if (value.equals("BenchmarkTest02359")) {
-                        param = name;
+                        param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( name);
                         flag = false;
                     }
                 }
             }
         }
 
-        String bar = doSomething(request, param);
+        String bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( doSomething(request, param));
 
-        String sql = "SELECT userid from USERS where USERNAME='foo' and PASSWORD='" + bar + "'";
+        String sql = "SELECT userid from USERS where USERNAME='foo' and PASSWORD=?";
         try {
             // Long results =
-            // org.owasp.benchmark.helpers.DatabaseHelper.JDBCtemplate.queryForLong(sql);
+            // org.owasp.benchmark.helpers.DatabaseHelper.JDBCtemplate.queryForLong(sql, bar);
             Long results =
                     org.owasp.benchmark.helpers.DatabaseHelper.JDBCtemplate.queryForObject(
-                            sql, Long.class);
+                            sql, Long.class, bar);
             response.getWriter().println("Your results are: " + String.valueOf(results));
         } catch (org.springframework.dao.EmptyResultDataAccessException e) {
             response.getWriter()
@@ -86,7 +86,7 @@ public class BenchmarkTest02359 extends HttpServlet {
 
         // Simple if statement that assigns param to bar on true condition
         int num = 196;
-        if ((500 / 42) + num > 200) bar = param;
+        if ((500 / 42) + num > 200) bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( param);
         else bar = "This should never happen";
 
         return bar;

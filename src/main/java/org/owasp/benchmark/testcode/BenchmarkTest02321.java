@@ -50,14 +50,14 @@ public class BenchmarkTest02321 extends HttpServlet {
                 for (int i = 0; i < values.length && flag; i++) {
                     String value = values[i];
                     if (value.equals("BenchmarkTest02321")) {
-                        param = name;
+                        param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( name);
                         flag = false;
                     }
                 }
             }
         }
 
-        String bar = doSomething(request, param);
+        String bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( doSomething(request, param));
 
         response.setHeader("X-XSS-Protection", "0");
         Object[] obj = {bar, "b"};
@@ -87,7 +87,7 @@ public class BenchmarkTest02321 extends HttpServlet {
         String f32510 = e32510.split(" ")[0]; // split it on a space
         org.owasp.benchmark.helpers.ThingInterface thing =
                 org.owasp.benchmark.helpers.ThingFactory.createThing();
-        String bar = thing.doSomething(f32510); // reflection
+        String bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( thing.doSomething(f32510)); // reflection
 
         return bar;
     }

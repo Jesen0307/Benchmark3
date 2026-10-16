@@ -46,6 +46,7 @@ public class BenchmarkTest01609 extends HttpServlet {
         else param = "";
 
         String bar = new Test().doSomething(request, param);
+        bar = (bar != null && bar.matches("[A-Za-z0-9_\\-./ ]+")) ? bar : "invalid";
 
         String cmd = "";
         String osName = System.getProperty("os.name");

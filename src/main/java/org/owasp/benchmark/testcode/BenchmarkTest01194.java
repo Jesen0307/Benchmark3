@@ -44,13 +44,16 @@ public class BenchmarkTest01194 extends HttpServlet {
         java.util.Enumeration<String> headers = request.getHeaders("BenchmarkTest01194");
 
         if (headers != null && headers.hasMoreElements()) {
-            param = headers.nextElement(); // just grab first element
+            param = headers.nextElement();
+            param = (param != null && param.matches("[A-Za-z0-9_\\-./ ]+")) ? param : "invalid"; // just grab first element
         }
 
         // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
         param = java.net.URLDecoder.decode(param, "UTF-8");
+        param = (param != null && param.matches("[A-Za-z0-9_\\-./ ]+")) ? param : "invalid";
 
         String bar = new Test().doSomething(request, param);
+        bar = (bar != null && bar.matches("[A-Za-z0-9_\\-./ ]+")) ? bar : "invalid";
 
         String cmd = "";
         String osName = System.getProperty("os.name");
@@ -85,6 +88,7 @@ public class BenchmarkTest01194 extends HttpServlet {
             switch (switchTarget) {
                 case 'A':
                     bar = param;
+                    bar = (bar != null && bar.matches("[A-Za-z0-9_\\-./ ]+")) ? bar : "invalid";
                     break;
                 case 'B':
                     bar = "bobs_your_uncle";
@@ -92,6 +96,7 @@ public class BenchmarkTest01194 extends HttpServlet {
                 case 'C':
                 case 'D':
                     bar = param;
+                    bar = (bar != null && bar.matches("[A-Za-z0-9_\\-./ ]+")) ? bar : "invalid";
                     break;
                 default:
                     bar = "bobs_your_uncle";

@@ -43,12 +43,15 @@ public class BenchmarkTest01929 extends HttpServlet {
         String param = "";
         if (request.getHeader("BenchmarkTest01929") != null) {
             param = request.getHeader("BenchmarkTest01929");
+            param = (param != null && param.matches("[A-Za-z0-9_\\-./ ]+")) ? param : "invalid";
         }
 
         // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
         param = java.net.URLDecoder.decode(param, "UTF-8");
+        param = (param != null && param.matches("[A-Za-z0-9_\\-./ ]+")) ? param : "invalid";
 
         String bar = doSomething(request, param);
+        bar = (bar != null && bar.matches("[A-Za-z0-9_\\-./ ]+")) ? bar : "invalid";
 
         String a1 = "";
         String a2 = "";

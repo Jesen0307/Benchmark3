@@ -54,19 +54,19 @@ public class BenchmarkTest00048 extends HttpServlet {
             return;
         }
 
-        String param =
+        String param =org.owasp.esapi.ESAPI.encoder().encodeForHTML(
                 queryString.substring(
                         paramLoc
                                 + paramval
-                                        .length()); // 1st assume "BenchmarkTest00048" param is last
+                                        .length())); // 1st assume "BenchmarkTest00048" param is last
         // parameter in query string.
         // And then check to see if its in the middle of the query string and if so, trim off what
         // comes after.
         int ampersandLoc = queryString.indexOf("&", paramLoc);
         if (ampersandLoc != -1) {
-            param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
+            param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( queryString.substring(paramLoc + paramval.length(), ampersandLoc));
         }
-        param = java.net.URLDecoder.decode(param, "UTF-8");
+        param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( java.net.URLDecoder.decode(param, "UTF-8"));
 
         response.setHeader("X-XSS-Protection", "0");
         response.getWriter().print(param.toCharArray());

@@ -40,7 +40,7 @@ public class BenchmarkTest00442 extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        String param = request.getParameter("BenchmarkTest00442");
+        String param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( request.getParameter("BenchmarkTest00442"));
         if (param == null) param = "";
 
         String bar;
@@ -48,7 +48,7 @@ public class BenchmarkTest00442 extends HttpServlet {
         // Simple ? condition that assigns param to bar on false condition
         int num = 106;
 
-        bar = (7 * 42) - num > 200 ? "This should never happen" : param;
+        bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( (7 * 42) - num > 200 ? "This should never happen" : param);
 
         try {
             java.io.FileInputStream file =
@@ -64,7 +64,7 @@ public class BenchmarkTest00442 extends HttpServlet {
             javax.xml.xpath.XPathFactory xpf = javax.xml.xpath.XPathFactory.newInstance();
             javax.xml.xpath.XPath xp = xpf.newXPath();
 
-            String expression = "/Employees/Employee[@emplid='" + bar + "']";
+            String expression = "/Employees/Employee[@emplid='" + org.owasp.esapi.ESAPI.encoder().encodeForXPath(bar) + "']";
             String result = xp.evaluate(expression, xmlDocument);
 
             response.getWriter().println("Your query results are: " + result + "<br/>");

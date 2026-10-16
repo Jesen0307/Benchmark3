@@ -42,10 +42,10 @@ public class BenchmarkTest01584 extends HttpServlet {
 
         String[] values = request.getParameterValues("BenchmarkTest01584");
         String param;
-        if (values != null && values.length > 0) param = values[0];
+        if (values != null && values.length > 0) param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( values[0]);
         else param = "";
 
-        String bar = new Test().doSomething(request, param);
+        String bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( new Test().doSomething(request, param));
 
         response.setHeader("X-XSS-Protection", "0");
         Object[] obj = {"a", "b"};
@@ -61,7 +61,7 @@ public class BenchmarkTest01584 extends HttpServlet {
 
             // Simple if statement that assigns param to bar on true condition
             int num = 196;
-            if ((500 / 42) + num > 200) bar = param;
+            if ((500 / 42) + num > 200) bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( param);
             else bar = "This should never happen";
 
             return bar;

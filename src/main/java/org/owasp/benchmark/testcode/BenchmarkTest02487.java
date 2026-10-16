@@ -42,10 +42,10 @@ public class BenchmarkTest02487 extends HttpServlet {
 
         String[] values = request.getParameterValues("BenchmarkTest02487");
         String param;
-        if (values != null && values.length > 0) param = values[0];
+        if (values != null && values.length > 0) param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( values[0]);
         else param = "";
 
-        String bar = doSomething(request, param);
+        String bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( doSomething(request, param));
 
         response.setHeader("X-XSS-Protection", "0");
         Object[] obj = {bar, "b"};
@@ -57,7 +57,7 @@ public class BenchmarkTest02487 extends HttpServlet {
 
         org.owasp.benchmark.helpers.ThingInterface thing =
                 org.owasp.benchmark.helpers.ThingFactory.createThing();
-        String bar = thing.doSomething(param);
+        String bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( thing.doSomething(param));
 
         return bar;
     }

@@ -50,22 +50,22 @@ public class BenchmarkTest02360 extends HttpServlet {
                 for (int i = 0; i < values.length && flag; i++) {
                     String value = values[i];
                     if (value.equals("BenchmarkTest02360")) {
-                        param = name;
+                        param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( name);
                         flag = false;
                     }
                 }
             }
         }
 
-        String bar = doSomething(request, param);
+        String bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( doSomething(request, param));
 
-        String sql = "SELECT userid from USERS where USERNAME='foo' and PASSWORD='" + bar + "'";
+        String sql = "SELECT userid from USERS where USERNAME='foo' and PASSWORD=?";
         try {
             // Long results =
-            // org.owasp.benchmark.helpers.DatabaseHelper.JDBCtemplate.queryForLong(sql);
+            // org.owasp.benchmark.helpers.DatabaseHelper.JDBCtemplate.queryForLong(sql, bar);
             Long results =
                     org.owasp.benchmark.helpers.DatabaseHelper.JDBCtemplate.queryForObject(
-                            sql, Long.class);
+                            sql, Long.class, bar);
             response.getWriter().println("Your results are: " + String.valueOf(results));
         } catch (org.springframework.dao.EmptyResultDataAccessException e) {
             response.getWriter()
@@ -89,14 +89,14 @@ public class BenchmarkTest02360 extends HttpServlet {
         // Simple case statement that assigns param to bar on conditions 'A', 'C', or 'D'
         switch (switchTarget) {
             case 'A':
-                bar = param;
+                bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( param);
                 break;
             case 'B':
                 bar = "bobs_your_uncle";
                 break;
             case 'C':
             case 'D':
-                bar = param;
+                bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( param);
                 break;
             default:
                 bar = "bobs_your_uncle";

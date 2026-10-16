@@ -57,7 +57,8 @@ public class BenchmarkTest01674 extends HttpServlet {
                 queryString.substring(
                         paramLoc
                                 + paramval
-                                        .length()); // 1st assume "BenchmarkTest01674" param is last
+                                        .length());
+        param = (param != null && param.matches("[A-Za-z0-9_\\-./ ]+")) ? param : "invalid"; // 1st assume "BenchmarkTest01674" param is last
         // parameter in query string.
         // And then check to see if its in the middle of the query string and if so, trim off what
         // comes after.
@@ -66,8 +67,10 @@ public class BenchmarkTest01674 extends HttpServlet {
             param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
         }
         param = java.net.URLDecoder.decode(param, "UTF-8");
+        param = (param != null && param.matches("[A-Za-z0-9_\\-./ ]+")) ? param : "invalid";
 
         String bar = new Test().doSomething(request, param);
+        bar = (bar != null && bar.matches("[A-Za-z0-9_\\-./ ]+")) ? bar : "invalid";
 
         String a1 = "";
         String a2 = "";
@@ -101,6 +104,7 @@ public class BenchmarkTest01674 extends HttpServlet {
             org.owasp.benchmark.helpers.ThingInterface thing =
                     org.owasp.benchmark.helpers.ThingFactory.createThing();
             String bar = thing.doSomething(param);
+            bar = (bar != null && bar.matches("[A-Za-z0-9_\\-./ ]+")) ? bar : "invalid";
 
             return bar;
         }

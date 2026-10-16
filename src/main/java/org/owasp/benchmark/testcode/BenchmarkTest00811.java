@@ -53,19 +53,19 @@ public class BenchmarkTest00811 extends HttpServlet {
             return;
         }
 
-        String param =
+        String param =org.owasp.esapi.ESAPI.encoder().encodeForHTML(
                 queryString.substring(
                         paramLoc
                                 + paramval
-                                        .length()); // 1st assume "BenchmarkTest00811" param is last
+                                        .length())); // 1st assume "BenchmarkTest00811" param is last
         // parameter in query string.
         // And then check to see if its in the middle of the query string and if so, trim off what
         // comes after.
         int ampersandLoc = queryString.indexOf("&", paramLoc);
         if (ampersandLoc != -1) {
-            param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
+            param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( queryString.substring(paramLoc + paramval.length(), ampersandLoc));
         }
-        param = java.net.URLDecoder.decode(param, "UTF-8");
+        param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( java.net.URLDecoder.decode(param, "UTF-8"));
 
         String bar;
         String guess = "ABC";
@@ -74,14 +74,14 @@ public class BenchmarkTest00811 extends HttpServlet {
         // Simple case statement that assigns param to bar on conditions 'A', 'C', or 'D'
         switch (switchTarget) {
             case 'A':
-                bar = param;
+                bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( param);
                 break;
             case 'B':
                 bar = "bobs_your_uncle";
                 break;
             case 'C':
             case 'D':
-                bar = param;
+                bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( param);
                 break;
             default:
                 bar = "bobs_your_uncle";

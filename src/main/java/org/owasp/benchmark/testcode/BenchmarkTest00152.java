@@ -42,11 +42,11 @@ public class BenchmarkTest00152 extends HttpServlet {
 
         String param = "";
         if (request.getHeader("Referer") != null) {
-            param = request.getHeader("Referer");
+            param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( request.getHeader("Referer"));
         }
 
         // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
-        param = java.net.URLDecoder.decode(param, "UTF-8");
+        param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( java.net.URLDecoder.decode(param, "UTF-8"));
 
         String bar;
         String guess = "ABC";
@@ -55,14 +55,14 @@ public class BenchmarkTest00152 extends HttpServlet {
         // Simple case statement that assigns param to bar on conditions 'A', 'C', or 'D'
         switch (switchTarget) {
             case 'A':
-                bar = param;
+                bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( param);
                 break;
             case 'B':
                 bar = "bobs_your_uncle";
                 break;
             case 'C':
             case 'D':
-                bar = param;
+                bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( param);
                 break;
             default:
                 bar = "bobs_your_uncle";

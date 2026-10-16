@@ -47,7 +47,7 @@ public class BenchmarkTest00425 extends HttpServlet {
         String bar = sbxyz2192.append("_SafeStuff").toString();
 
         // javax.servlet.http.HttpSession.putValue(java.lang.String,java.lang.Object^)
-        request.getSession().putValue("userid", bar);
+        request.getSession().putValue("userid", (bar != null && bar.matches("[A-Za-z0-9_]+")) ? bar : "invalid");
 
         response.getWriter()
                 .println(

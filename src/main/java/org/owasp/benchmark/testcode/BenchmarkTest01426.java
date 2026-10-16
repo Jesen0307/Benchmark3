@@ -50,14 +50,14 @@ public class BenchmarkTest01426 extends HttpServlet {
                 for (int i = 0; i < values.length && flag; i++) {
                     String value = values[i];
                     if (value.equals("BenchmarkTest01426")) {
-                        param = name;
+                        param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( name);
                         flag = false;
                     }
                 }
             }
         }
 
-        String bar = new Test().doSomething(request, param);
+        String bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( new Test().doSomething(request, param));
 
         response.setHeader("X-XSS-Protection", "0");
         response.getWriter().println(bar);
@@ -75,14 +75,14 @@ public class BenchmarkTest01426 extends HttpServlet {
             // Simple case statement that assigns param to bar on conditions 'A', 'C', or 'D'
             switch (switchTarget) {
                 case 'A':
-                    bar = param;
+                    bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( param);
                     break;
                 case 'B':
                     bar = "bobs_your_uncle";
                     break;
                 case 'C':
                 case 'D':
-                    bar = param;
+                    bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( param);
                     break;
                 default:
                     bar = "bobs_your_uncle";

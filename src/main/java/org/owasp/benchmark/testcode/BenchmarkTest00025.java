@@ -41,16 +41,16 @@ public class BenchmarkTest00025 extends HttpServlet {
         // some code
         response.setContentType("text/html;charset=UTF-8");
 
-        String param = request.getParameter("BenchmarkTest00025");
+        String param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( request.getParameter("BenchmarkTest00025"));
         if (param == null) param = "";
 
-        String sql = "SELECT userid from USERS where USERNAME='foo' and PASSWORD='" + param + "'";
+        String sql = "SELECT userid from USERS where USERNAME='foo' and PASSWORD=?";
         try {
             // Long results =
-            // org.owasp.benchmark.helpers.DatabaseHelper.JDBCtemplate.queryForLong(sql);
+            // org.owasp.benchmark.helpers.DatabaseHelper.JDBCtemplate.queryForLong(sql, param);
             Long results =
                     org.owasp.benchmark.helpers.DatabaseHelper.JDBCtemplate.queryForObject(
-                            sql, Long.class);
+                            sql, Long.class, param);
             response.getWriter().println("Your results are: " + String.valueOf(results));
         } catch (org.springframework.dao.EmptyResultDataAccessException e) {
             response.getWriter()

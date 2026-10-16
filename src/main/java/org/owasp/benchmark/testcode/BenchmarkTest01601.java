@@ -46,6 +46,7 @@ public class BenchmarkTest01601 extends HttpServlet {
         else param = "";
 
         String bar = new Test().doSomething(request, param);
+        bar = (bar != null && bar.matches("[A-Za-z0-9_\\-./ ]+")) ? bar : "invalid";
 
         java.util.List<String> argList = new java.util.ArrayList<String>();
 

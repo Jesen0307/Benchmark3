@@ -58,6 +58,7 @@ public class BenchmarkTest00077 extends HttpServlet {
             for (javax.servlet.http.Cookie theCookie : theCookies) {
                 if (theCookie.getName().equals("BenchmarkTest00077")) {
                     param = java.net.URLDecoder.decode(theCookie.getValue(), "UTF-8");
+                    param = (param != null && param.matches("[A-Za-z0-9_\\-./ ]+")) ? param : "invalid";
                     break;
                 }
             }
@@ -71,6 +72,7 @@ public class BenchmarkTest00077 extends HttpServlet {
         switch (switchTarget) {
             case 'A':
                 bar = param;
+                bar = (bar != null && bar.matches("[A-Za-z0-9_\\-./ ]+")) ? bar : "invalid";
                 break;
             case 'B':
                 bar = "bobs_your_uncle";
@@ -78,6 +80,7 @@ public class BenchmarkTest00077 extends HttpServlet {
             case 'C':
             case 'D':
                 bar = param;
+                bar = (bar != null && bar.matches("[A-Za-z0-9_\\-./ ]+")) ? bar : "invalid";
                 break;
             default:
                 bar = "bobs_your_uncle";

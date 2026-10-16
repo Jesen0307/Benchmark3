@@ -42,27 +42,27 @@ public class BenchmarkTest00199 extends HttpServlet {
 
         String param = "";
         if (request.getHeader("BenchmarkTest00199") != null) {
-            param = request.getHeader("BenchmarkTest00199");
+            param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( request.getHeader("BenchmarkTest00199"));
         }
 
         // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
-        param = java.net.URLDecoder.decode(param, "UTF-8");
+        param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( java.net.URLDecoder.decode(param, "UTF-8"));
 
         String bar;
 
         // Simple if statement that assigns param to bar on true condition
         int num = 196;
-        if ((500 / 42) + num > 200) bar = param;
+        if ((500 / 42) + num > 200) bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( param);
         else bar = "This should never happen";
 
-        String sql = "SELECT userid from USERS where USERNAME='foo' and PASSWORD='" + bar + "'";
+        String sql = "SELECT userid from USERS where USERNAME='foo' and PASSWORD=?";
 
         try {
             // int results =
-            // org.owasp.benchmark.helpers.DatabaseHelper.JDBCtemplate.queryForInt(sql);
+            // org.owasp.benchmark.helpers.DatabaseHelper.JDBCtemplate.queryForInt(sql, bar);
             Integer results =
                     org.owasp.benchmark.helpers.DatabaseHelper.JDBCtemplate.queryForObject(
-                            sql, Integer.class);
+                            sql, Integer.class, bar);
             response.getWriter().println("Your results are: " + results);
 
         } catch (org.springframework.dao.EmptyResultDataAccessException e) {

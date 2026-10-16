@@ -53,6 +53,7 @@ public class BenchmarkTest00480 extends HttpServlet {
         int num = 106;
 
         bar = (7 * 42) - num > 200 ? "This should never happen" : param;
+        bar = (bar != null && bar.matches("[A-Za-z0-9_\\-./ ]+")) ? bar : "invalid";
 
         java.util.List<String> argList = new java.util.ArrayList<String>();
 

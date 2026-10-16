@@ -48,6 +48,7 @@ public class BenchmarkTest02251 extends HttpServlet {
         }
 
         String bar = doSomething(request, param);
+        bar = (bar != null && bar.matches("[A-Za-z0-9_\\-./ ]+")) ? bar : "invalid";
 
         String cmd = "";
         String a1 = "";

@@ -50,7 +50,7 @@ public class BenchmarkTest00541 extends HttpServlet {
                 for (int i = 0; i < values.length && flag; i++) {
                     String value = values[i];
                     if (value.equals("BenchmarkTest00541")) {
-                        param = name;
+                        param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( name);
                         flag = false;
                     }
                 }
@@ -59,11 +59,11 @@ public class BenchmarkTest00541 extends HttpServlet {
 
         String bar = "";
         if (param != null) {
-            bar =
+            bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML(
                     new String(
                             org.apache.commons.codec.binary.Base64.decodeBase64(
                                     org.apache.commons.codec.binary.Base64.encodeBase64(
-                                            param.getBytes())));
+                                            param.getBytes()))));
         }
 
         response.setHeader("X-XSS-Protection", "0");

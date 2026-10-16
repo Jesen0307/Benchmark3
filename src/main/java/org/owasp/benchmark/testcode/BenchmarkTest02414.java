@@ -43,9 +43,11 @@ public class BenchmarkTest02414 extends HttpServlet {
         org.owasp.benchmark.helpers.SeparateClassRequest scr =
                 new org.owasp.benchmark.helpers.SeparateClassRequest(request);
         String param = scr.getTheParameter("BenchmarkTest02414");
+        param = (param != null && param.matches("[A-Za-z0-9_\\-./ ]+")) ? param : "invalid";
         if (param == null) param = "";
 
         String bar = doSomething(request, param);
+        bar = (bar != null && bar.matches("[A-Za-z0-9_\\-./ ]+")) ? bar : "invalid";
 
         java.util.List<String> argList = new java.util.ArrayList<String>();
 
@@ -82,6 +84,7 @@ public class BenchmarkTest02414 extends HttpServlet {
         switch (switchTarget) {
             case 'A':
                 bar = param;
+                bar = (bar != null && bar.matches("[A-Za-z0-9_\\-./ ]+")) ? bar : "invalid";
                 break;
             case 'B':
                 bar = "bobs_your_uncle";
@@ -89,6 +92,7 @@ public class BenchmarkTest02414 extends HttpServlet {
             case 'C':
             case 'D':
                 bar = param;
+                bar = (bar != null && bar.matches("[A-Za-z0-9_\\-./ ]+")) ? bar : "invalid";
                 break;
             default:
                 bar = "bobs_your_uncle";

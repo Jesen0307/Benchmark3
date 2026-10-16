@@ -79,7 +79,7 @@ public class BenchmarkTest01892 extends HttpServlet {
             javax.xml.xpath.XPathFactory xpf = javax.xml.xpath.XPathFactory.newInstance();
             javax.xml.xpath.XPath xp = xpf.newXPath();
 
-            String expression = "/Employees/Employee[@emplid='" + bar + "']";
+            String expression = "/Employees/Employee[@emplid='" + org.owasp.esapi.ESAPI.encoder().encodeForXPath(bar) + "']";
             org.w3c.dom.NodeList nodeList =
                     (org.w3c.dom.NodeList)
                             xp.compile(expression)

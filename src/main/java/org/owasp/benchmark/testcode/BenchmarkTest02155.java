@@ -41,9 +41,11 @@ public class BenchmarkTest02155 extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         String param = request.getParameter("BenchmarkTest02155");
+        param = (param != null && param.matches("[A-Za-z0-9_\\-./ ]+")) ? param : "invalid";
         if (param == null) param = "";
 
         String bar = doSomething(request, param);
+        bar = (bar != null && bar.matches("[A-Za-z0-9_\\-./ ]+")) ? bar : "invalid";
 
         String cmd =
                 org.owasp.benchmark.helpers.Utils.getInsecureOSCommandString(

@@ -42,13 +42,13 @@ public class BenchmarkTest01927 extends HttpServlet {
 
         String param = "";
         if (request.getHeader("Referer") != null) {
-            param = request.getHeader("Referer");
+            param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( request.getHeader("Referer"));
         }
 
         // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
-        param = java.net.URLDecoder.decode(param, "UTF-8");
+        param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( java.net.URLDecoder.decode(param, "UTF-8"));
 
-        String bar = doSomething(request, param);
+        String bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( doSomething(request, param));
 
         response.setHeader("X-XSS-Protection", "0");
         response.getWriter().write(bar);
@@ -59,11 +59,11 @@ public class BenchmarkTest01927 extends HttpServlet {
 
         String bar = "";
         if (param != null) {
-            bar =
+            bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML(
                     new String(
                             org.apache.commons.codec.binary.Base64.decodeBase64(
                                     org.apache.commons.codec.binary.Base64.encodeBase64(
-                                            param.getBytes())));
+                                            param.getBytes()))));
         }
 
         return bar;

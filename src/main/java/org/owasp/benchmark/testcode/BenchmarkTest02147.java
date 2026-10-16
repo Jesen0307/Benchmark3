@@ -41,9 +41,11 @@ public class BenchmarkTest02147 extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         String param = request.getParameter("BenchmarkTest02147");
+        param = (param != null && param.matches("[A-Za-z0-9_\\-./ ]+")) ? param : "invalid";
         if (param == null) param = "";
 
         String bar = doSomething(request, param);
+        bar = (bar != null && bar.matches("[A-Za-z0-9_\\-./ ]+")) ? bar : "invalid";
 
         String cmd = "";
         String osName = System.getProperty("os.name");
@@ -68,6 +70,7 @@ public class BenchmarkTest02147 extends HttpServlet {
             throws ServletException, IOException {
 
         String bar = param;
+        bar = (bar != null && bar.matches("[A-Za-z0-9_\\-./ ]+")) ? bar : "invalid";
 
         return bar;
     }

@@ -44,13 +44,13 @@ public class BenchmarkTest01181 extends HttpServlet {
         java.util.Enumeration<String> headers = request.getHeaders("Referer");
 
         if (headers != null && headers.hasMoreElements()) {
-            param = headers.nextElement(); // just grab first element
+            param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( headers.nextElement()); // just grab first element
         }
 
         // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
-        param = java.net.URLDecoder.decode(param, "UTF-8");
+        param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( java.net.URLDecoder.decode(param, "UTF-8"));
 
-        String bar = new Test().doSomething(request, param);
+        String bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( new Test().doSomething(request, param));
 
         response.setHeader("X-XSS-Protection", "0");
         response.getWriter().write(bar.toCharArray());
@@ -63,11 +63,11 @@ public class BenchmarkTest01181 extends HttpServlet {
 
             String bar = "";
             if (param != null) {
-                bar =
+                bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML(
                         new String(
                                 org.apache.commons.codec.binary.Base64.decodeBase64(
                                         org.apache.commons.codec.binary.Base64.encodeBase64(
-                                                param.getBytes())));
+                                                param.getBytes()))));
             }
 
             return bar;

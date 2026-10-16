@@ -52,7 +52,7 @@ public class BenchmarkTest00760 extends HttpServlet {
         map18915.put("keyC", "another-Value"); // put some stuff in the collection
         bar = (String) map18915.get("keyB-18915"); // get it back out
 
-        String sql = "{call " + bar + "}";
+        String sql = "{call " + (bar.matches("[A-Za-z0-9_.]+") ? bar : "noop") + "}";
 
         try {
             java.sql.Connection connection =

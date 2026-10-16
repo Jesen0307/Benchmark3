@@ -58,12 +58,14 @@ public class BenchmarkTest00968 extends HttpServlet {
             for (javax.servlet.http.Cookie theCookie : theCookies) {
                 if (theCookie.getName().equals("BenchmarkTest00968")) {
                     param = java.net.URLDecoder.decode(theCookie.getValue(), "UTF-8");
+                    param = (param != null && param.matches("[A-Za-z0-9_\\-./ ]+")) ? param : "invalid";
                     break;
                 }
             }
         }
 
         String bar = new Test().doSomething(request, param);
+        bar = (bar != null && bar.matches("[A-Za-z0-9_\\-./ ]+")) ? bar : "invalid";
 
         java.util.List<String> argList = new java.util.ArrayList<String>();
 
@@ -95,6 +97,7 @@ public class BenchmarkTest00968 extends HttpServlet {
                 throws ServletException, IOException {
 
             String bar = param;
+            bar = (bar != null && bar.matches("[A-Za-z0-9_\\-./ ]+")) ? bar : "invalid";
 
             return bar;
         }

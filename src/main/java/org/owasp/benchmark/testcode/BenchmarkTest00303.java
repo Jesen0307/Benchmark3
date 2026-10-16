@@ -44,11 +44,13 @@ public class BenchmarkTest00303 extends HttpServlet {
         java.util.Enumeration<String> headers = request.getHeaders("BenchmarkTest00303");
 
         if (headers != null && headers.hasMoreElements()) {
-            param = headers.nextElement(); // just grab first element
+            param = headers.nextElement();
+            param = (param != null && param.matches("[A-Za-z0-9_\\-./ ]+")) ? param : "invalid"; // just grab first element
         }
 
         // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
         param = java.net.URLDecoder.decode(param, "UTF-8");
+        param = (param != null && param.matches("[A-Za-z0-9_\\-./ ]+")) ? param : "invalid";
 
         String bar = "";
         if (param != null) {
@@ -57,6 +59,7 @@ public class BenchmarkTest00303 extends HttpServlet {
                             org.apache.commons.codec.binary.Base64.decodeBase64(
                                     org.apache.commons.codec.binary.Base64.encodeBase64(
                                             param.getBytes())));
+            bar = (bar != null && bar.matches("[A-Za-z0-9_\\-./ ]+")) ? bar : "invalid";
         }
 
         String cmd = "";

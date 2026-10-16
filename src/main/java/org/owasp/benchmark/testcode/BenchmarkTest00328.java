@@ -57,7 +57,7 @@ public class BenchmarkTest00328 extends HttpServlet {
 
         bar = (7 * 42) - num > 200 ? "This should never happen" : param;
 
-        String sql = "{call " + bar + "}";
+        String sql = "{call " + (bar.matches("[A-Za-z0-9_.]+") ? bar : "noop") + "}";
 
         try {
             java.sql.Connection connection =

@@ -44,19 +44,19 @@ public class BenchmarkTest01388 extends HttpServlet {
         String param = "";
         if (!map.isEmpty()) {
             String[] values = map.get("BenchmarkTest01388");
-            if (values != null) param = values[0];
+            if (values != null) param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( values[0]);
         }
 
-        String bar = new Test().doSomething(request, param);
+        String bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( new Test().doSomething(request, param));
 
-        String sql = "SELECT userid from USERS where USERNAME='foo' and PASSWORD='" + bar + "'";
+        String sql = "SELECT userid from USERS where USERNAME='foo' and PASSWORD=?";
 
         try {
             // int results =
-            // org.owasp.benchmark.helpers.DatabaseHelper.JDBCtemplate.queryForInt(sql);
+            // org.owasp.benchmark.helpers.DatabaseHelper.JDBCtemplate.queryForInt(sql, bar);
             Integer results =
                     org.owasp.benchmark.helpers.DatabaseHelper.JDBCtemplate.queryForObject(
-                            sql, Integer.class);
+                            sql, Integer.class, bar);
             response.getWriter().println("Your results are: " + results);
 
         } catch (org.springframework.dao.EmptyResultDataAccessException e) {
@@ -83,14 +83,14 @@ public class BenchmarkTest01388 extends HttpServlet {
             // Simple case statement that assigns param to bar on conditions 'A', 'C', or 'D'
             switch (switchTarget) {
                 case 'A':
-                    bar = param;
+                    bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( param);
                     break;
                 case 'B':
                     bar = "bobs_your_uncle";
                     break;
                 case 'C':
                 case 'D':
-                    bar = param;
+                    bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( param);
                     break;
                 default:
                     bar = "bobs_your_uncle";

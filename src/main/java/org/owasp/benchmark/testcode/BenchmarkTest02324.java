@@ -50,14 +50,14 @@ public class BenchmarkTest02324 extends HttpServlet {
                 for (int i = 0; i < values.length && flag; i++) {
                     String value = values[i];
                     if (value.equals("BenchmarkTest02324")) {
-                        param = name;
+                        param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( name);
                         flag = false;
                     }
                 }
             }
         }
 
-        String bar = doSomething(request, param);
+        String bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( doSomething(request, param));
 
         response.setHeader("X-XSS-Protection", "0");
         Object[] obj = {bar, "b"};
@@ -67,10 +67,10 @@ public class BenchmarkTest02324 extends HttpServlet {
     private static String doSomething(HttpServletRequest request, String param)
             throws ServletException, IOException {
 
-        String bar = param;
+        String bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( param);
         if (param != null && param.length() > 1) {
             StringBuilder sbxyz12198 = new StringBuilder(param);
-            bar = sbxyz12198.replace(param.length() - "Z".length(), param.length(), "Z").toString();
+            bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( sbxyz12198.replace(param.length() - "Z".length(), param.length(), "Z").toString());
         }
 
         return bar;

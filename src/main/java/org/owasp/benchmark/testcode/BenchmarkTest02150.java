@@ -41,9 +41,11 @@ public class BenchmarkTest02150 extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         String param = request.getParameter("BenchmarkTest02150");
+        param = (param != null && param.matches("[A-Za-z0-9_\\-./ ]+")) ? param : "invalid";
         if (param == null) param = "";
 
         String bar = doSomething(request, param);
+        bar = (bar != null && bar.matches("[A-Za-z0-9_\\-./ ]+")) ? bar : "invalid";
 
         String cmd = "";
         String a1 = "";
@@ -89,6 +91,7 @@ public class BenchmarkTest02150 extends HttpServlet {
         switch (switchTarget) {
             case 'A':
                 bar = param;
+                bar = (bar != null && bar.matches("[A-Za-z0-9_\\-./ ]+")) ? bar : "invalid";
                 break;
             case 'B':
                 bar = "bobs_your_uncle";
@@ -96,6 +99,7 @@ public class BenchmarkTest02150 extends HttpServlet {
             case 'C':
             case 'D':
                 bar = param;
+                bar = (bar != null && bar.matches("[A-Za-z0-9_\\-./ ]+")) ? bar : "invalid";
                 break;
             default:
                 bar = "bobs_your_uncle";

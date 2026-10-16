@@ -44,10 +44,10 @@ public class BenchmarkTest01349 extends HttpServlet {
         String param = "";
         if (!map.isEmpty()) {
             String[] values = map.get("BenchmarkTest01349");
-            if (values != null) param = values[0];
+            if (values != null) param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( values[0]);
         }
 
-        String bar = new Test().doSomething(request, param);
+        String bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( new Test().doSomething(request, param));
 
         response.setHeader("X-XSS-Protection", "0");
         response.getWriter().println(bar);

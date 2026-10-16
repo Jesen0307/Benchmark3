@@ -53,7 +53,7 @@ public class BenchmarkTest00324 extends HttpServlet {
         String bar = org.springframework.web.util.HtmlUtils.htmlEscape(param);
 
         // javax.servlet.http.HttpSession.putValue(java.lang.String,java.lang.Object^)
-        request.getSession().putValue("userid", bar);
+        request.getSession().putValue("userid", (bar != null && bar.matches("[A-Za-z0-9_]+")) ? bar : "invalid");
 
         response.getWriter()
                 .println(

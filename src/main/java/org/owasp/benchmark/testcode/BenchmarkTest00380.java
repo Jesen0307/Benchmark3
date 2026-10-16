@@ -40,7 +40,7 @@ public class BenchmarkTest00380 extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        String param = request.getParameter("BenchmarkTest00380");
+        String param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( request.getParameter("BenchmarkTest00380"));
         if (param == null) param = "";
 
         String bar;
@@ -50,14 +50,14 @@ public class BenchmarkTest00380 extends HttpServlet {
         // Simple case statement that assigns param to bar on conditions 'A', 'C', or 'D'
         switch (switchTarget) {
             case 'A':
-                bar = param;
+                bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( param);
                 break;
             case 'B':
                 bar = "bobs_your_uncle";
                 break;
             case 'C':
             case 'D':
-                bar = param;
+                bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( param);
                 break;
             default:
                 bar = "bobs_your_uncle";

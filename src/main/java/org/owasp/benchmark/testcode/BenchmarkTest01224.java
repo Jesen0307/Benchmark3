@@ -44,13 +44,13 @@ public class BenchmarkTest01224 extends HttpServlet {
         java.util.Enumeration<String> headers = request.getHeaders("BenchmarkTest01224");
 
         if (headers != null && headers.hasMoreElements()) {
-            param = headers.nextElement(); // just grab first element
+            param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( headers.nextElement()); // just grab first element
         }
 
         // URL Decode the header value since req.getHeaders() doesn't. Unlike req.getParameters().
-        param = java.net.URLDecoder.decode(param, "UTF-8");
+        param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( java.net.URLDecoder.decode(param, "UTF-8"));
 
-        String bar = new Test().doSomething(request, param);
+        String bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( new Test().doSomething(request, param));
 
         try {
             java.io.FileInputStream file =
@@ -66,7 +66,7 @@ public class BenchmarkTest01224 extends HttpServlet {
             javax.xml.xpath.XPathFactory xpf = javax.xml.xpath.XPathFactory.newInstance();
             javax.xml.xpath.XPath xp = xpf.newXPath();
 
-            String expression = "/Employees/Employee[@emplid='" + bar + "']";
+            String expression = "/Employees/Employee[@emplid='" + org.owasp.esapi.ESAPI.encoder().encodeForXPath(bar) + "']";
             String result = xp.evaluate(expression, xmlDocument);
 
             response.getWriter().println("Your query results are: " + result + "<br/>");

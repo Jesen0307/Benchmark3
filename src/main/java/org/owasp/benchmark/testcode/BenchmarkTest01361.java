@@ -48,6 +48,7 @@ public class BenchmarkTest01361 extends HttpServlet {
         }
 
         String bar = new Test().doSomething(request, param);
+        bar = (bar != null && bar.matches("[A-Za-z0-9_\\-./ ]+")) ? bar : "invalid";
 
         String cmd =
                 org.owasp.benchmark.helpers.Utils.getInsecureOSCommandString(
@@ -74,6 +75,7 @@ public class BenchmarkTest01361 extends HttpServlet {
                 throws ServletException, IOException {
 
             String bar = param;
+            bar = (bar != null && bar.matches("[A-Za-z0-9_\\-./ ]+")) ? bar : "invalid";
 
             return bar;
         }

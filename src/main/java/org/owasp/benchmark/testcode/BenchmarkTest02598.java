@@ -53,21 +53,21 @@ public class BenchmarkTest02598 extends HttpServlet {
             return;
         }
 
-        String param =
+        String param =org.owasp.esapi.ESAPI.encoder().encodeForHTML(
                 queryString.substring(
                         paramLoc
                                 + paramval
-                                        .length()); // 1st assume "BenchmarkTest02598" param is last
+                                        .length())); // 1st assume "BenchmarkTest02598" param is last
         // parameter in query string.
         // And then check to see if its in the middle of the query string and if so, trim off what
         // comes after.
         int ampersandLoc = queryString.indexOf("&", paramLoc);
         if (ampersandLoc != -1) {
-            param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
+            param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( queryString.substring(paramLoc + paramval.length(), ampersandLoc));
         }
-        param = java.net.URLDecoder.decode(param, "UTF-8");
+        param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( java.net.URLDecoder.decode(param, "UTF-8"));
 
-        String bar = doSomething(request, param);
+        String bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( doSomething(request, param));
 
         response.setHeader("X-XSS-Protection", "0");
         response.getWriter().println(bar);
@@ -81,7 +81,7 @@ public class BenchmarkTest02598 extends HttpServlet {
         // Simple ? condition that assigns param to bar on false condition
         int num = 106;
 
-        bar = (7 * 42) - num > 200 ? "This should never happen" : param;
+        bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( (7 * 42) - num > 200 ? "This should never happen" : param);
 
         return bar;
     }

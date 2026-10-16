@@ -40,11 +40,11 @@ public class BenchmarkTest00395 extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        String param = request.getParameter("BenchmarkTest00395");
+        String param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( request.getParameter("BenchmarkTest00395"));
         if (param == null) param = "";
 
         String bar = "";
-        if (param != null) bar = param.split(" ")[0];
+        if (param != null) bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( param.split(" ")[0]);
 
         response.setHeader("X-XSS-Protection", "0");
         int length = 1;

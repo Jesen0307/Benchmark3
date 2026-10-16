@@ -45,7 +45,7 @@ public class BenchmarkTest02170 extends HttpServlet {
 
         String bar = doSomething(request, param);
 
-        String sql = "{call " + bar + "}";
+        String sql = "{call " + (bar.matches("[A-Za-z0-9_.]+") ? bar : "noop") + "}";
 
         try {
             java.sql.Connection connection =

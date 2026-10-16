@@ -40,7 +40,7 @@ public class BenchmarkTest00387 extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        String param = request.getParameter("BenchmarkTest00387");
+        String param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( request.getParameter("BenchmarkTest00387"));
         if (param == null) param = "";
 
         String bar;
@@ -48,7 +48,7 @@ public class BenchmarkTest00387 extends HttpServlet {
         // Simple ? condition that assigns param to bar on false condition
         int num = 106;
 
-        bar = (7 * 42) - num > 200 ? "This should never happen" : param;
+        bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML( (7 * 42) - num > 200 ? "This should never happen" : param);
 
         response.setHeader("X-XSS-Protection", "0");
         response.getWriter().println(bar.toCharArray());

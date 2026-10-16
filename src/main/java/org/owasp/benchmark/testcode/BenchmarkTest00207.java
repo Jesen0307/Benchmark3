@@ -42,19 +42,19 @@ public class BenchmarkTest00207 extends HttpServlet {
 
         String param = "";
         if (request.getHeader("BenchmarkTest00207") != null) {
-            param = request.getHeader("BenchmarkTest00207");
+            param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( request.getHeader("BenchmarkTest00207"));
         }
 
         // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
-        param = java.net.URLDecoder.decode(param, "UTF-8");
+        param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( java.net.URLDecoder.decode(param, "UTF-8"));
 
         String bar = "";
         if (param != null) {
-            bar =
+            bar =org.owasp.esapi.ESAPI.encoder().encodeForHTML(
                     new String(
                             org.apache.commons.codec.binary.Base64.decodeBase64(
                                     org.apache.commons.codec.binary.Base64.encodeBase64(
-                                            param.getBytes())));
+                                            param.getBytes()))));
         }
 
         try {
@@ -71,7 +71,7 @@ public class BenchmarkTest00207 extends HttpServlet {
             javax.xml.xpath.XPathFactory xpf = javax.xml.xpath.XPathFactory.newInstance();
             javax.xml.xpath.XPath xp = xpf.newXPath();
 
-            String expression = "/Employees/Employee[@emplid='" + bar + "']";
+            String expression = "/Employees/Employee[@emplid='" + org.owasp.esapi.ESAPI.encoder().encodeForXPath(bar) + "']";
             String result = xp.evaluate(expression, xmlDocument);
 
             response.getWriter().println("Your query results are: " + result + "<br/>");

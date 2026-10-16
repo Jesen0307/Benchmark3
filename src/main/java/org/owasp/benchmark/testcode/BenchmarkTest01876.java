@@ -66,7 +66,7 @@ public class BenchmarkTest01876 extends HttpServlet {
         String bar = doSomething(request, param);
 
         // javax.servlet.http.HttpSession.setAttribute(java.lang.String,java.lang.Object^)
-        request.getSession().setAttribute("userid", bar);
+        request.getSession().setAttribute("userid", (bar != null && bar.matches("[A-Za-z0-9_]+")) ? bar : "invalid");
 
         response.getWriter()
                 .println(

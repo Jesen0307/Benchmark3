@@ -57,7 +57,8 @@ public class BenchmarkTest00816 extends HttpServlet {
                 queryString.substring(
                         paramLoc
                                 + paramval
-                                        .length()); // 1st assume "BenchmarkTest00816" param is last
+                                        .length());
+        param = (param != null && param.matches("[A-Za-z0-9_\\-./ ]+")) ? param : "invalid"; // 1st assume "BenchmarkTest00816" param is last
         // parameter in query string.
         // And then check to see if its in the middle of the query string and if so, trim off what
         // comes after.
@@ -66,6 +67,7 @@ public class BenchmarkTest00816 extends HttpServlet {
             param = queryString.substring(paramLoc + paramval.length(), ampersandLoc);
         }
         param = java.net.URLDecoder.decode(param, "UTF-8");
+        param = (param != null && param.matches("[A-Za-z0-9_\\-./ ]+")) ? param : "invalid";
 
         String bar = "safe!";
         java.util.HashMap<String, Object> map34260 = new java.util.HashMap<String, Object>();

@@ -44,10 +44,12 @@ public class BenchmarkTest00007 extends HttpServlet {
         String param = "";
         if (request.getHeader("BenchmarkTest00007") != null) {
             param = request.getHeader("BenchmarkTest00007");
+            param = (param != null && param.matches("[A-Za-z0-9_\\-./ ]+")) ? param : "invalid";
         }
 
         // URL Decode the header value since req.getHeader() doesn't. Unlike req.getParameter().
         param = java.net.URLDecoder.decode(param, "UTF-8");
+        param = (param != null && param.matches("[A-Za-z0-9_\\-./ ]+")) ? param : "invalid";
 
         String cmd =
                 org.owasp.benchmark.helpers.Utils.getInsecureOSCommandString(

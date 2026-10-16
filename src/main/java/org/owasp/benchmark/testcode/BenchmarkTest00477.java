@@ -44,7 +44,7 @@ public class BenchmarkTest00477 extends HttpServlet {
         String param = "";
         if (!map.isEmpty()) {
             String[] values = map.get("BenchmarkTest00477");
-            if (values != null) param = values[0];
+            if (values != null) param =org.owasp.esapi.ESAPI.encoder().encodeForHTML( values[0]);
         }
 
         StringBuilder sbxyz54686 = new StringBuilder(param);

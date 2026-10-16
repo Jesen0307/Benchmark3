@@ -51,6 +51,7 @@ public class BenchmarkTest01442 extends HttpServlet {
                     String value = values[i];
                     if (value.equals("BenchmarkTest01442")) {
                         param = name;
+                        param = (param != null && param.matches("[A-Za-z0-9_\\-./ ]+")) ? param : "invalid";
                         flag = false;
                     }
                 }
@@ -58,6 +59,7 @@ public class BenchmarkTest01442 extends HttpServlet {
         }
 
         String bar = new Test().doSomething(request, param);
+        bar = (bar != null && bar.matches("[A-Za-z0-9_\\-./ ]+")) ? bar : "invalid";
 
         String cmd =
                 org.owasp.benchmark.helpers.Utils.getInsecureOSCommandString(
@@ -91,6 +93,7 @@ public class BenchmarkTest01442 extends HttpServlet {
             switch (switchTarget) {
                 case 'A':
                     bar = param;
+                    bar = (bar != null && bar.matches("[A-Za-z0-9_\\-./ ]+")) ? bar : "invalid";
                     break;
                 case 'B':
                     bar = "bobs_your_uncle";
@@ -98,6 +101,7 @@ public class BenchmarkTest01442 extends HttpServlet {
                 case 'C':
                 case 'D':
                     bar = param;
+                    bar = (bar != null && bar.matches("[A-Za-z0-9_\\-./ ]+")) ? bar : "invalid";
                     break;
                 default:
                     bar = "bobs_your_uncle";
